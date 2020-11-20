@@ -1,0 +1,236 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Logs</title>
+  <link rel="stylesheet" href="./styles/entries.css">
+  <link rel="stylesheet" href="./styles/analytics.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/chatbot.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
+</head>
+</head>
+
+<body
+  style="background-color: #E3E3E3; background-image: url('./images/Bg_4.png'); background-size: cover; background-repeat: no-repeat;   ">
+  <nav class="navbar navbar-custom navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Selfscape</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="true">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navb" class="navbar-collapse collapse hide">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="today.html">Add Logs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color:#B15269 !important" href="entries.html">My Logs</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="analytics.html">Analytics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="interests.html">Interests</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="view_interests.html">My Interests</a>
+        </li>
+      </ul>
+  
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="login.html"><span class="fas fa-sign-in-alt"></span> Logout</a>
+          </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-8 offset-md-2 card pb-5 pt-3 overflow-auto"
+        style="background-color: #C6D3DC;  height: 42rem; ">
+        <div class="row">
+          
+        </div>
+        <div class=" ml-6 card-title ;"  >My Logs</div>
+
+        <div class="row">
+
+          <div class="col-12 ">
+            <div id="viewentries" class="row">
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+
+
+    <div id="chatBotDiv"></div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"></script>
+    <script src="chatbot.js"></script>
+</body>
+
+<script>
+  function colorChange(event) {
+    let token = localStorage.getItem("token");
+    if (event.target.style.color === `rgb(97, 118, 149)`) {
+      fetch(`https://selfscape.herokuapp.com/diary/${event.target.getAttribute('data-id')}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
+        body: JSON.stringify({
+          newDiaryFields: [{
+            key: "isFavorite",
+            value: true
+          }]
+        })
+      })
+      .then(res => res.json())
+      .then(res => {
+        event.target.style.color = `#F1C145`; // golden
+      })
+      .catch(err => {
+        console.error(err);
+      })
+    } else {
+      fetch(`https://selfscape.herokuapp.com/diary/${event.target.getAttribute('data-id')}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
+        body: JSON.stringify({
+          newDiaryFields: [{
+            key: "isFavorite",
+            value: false
+          }]
+        })
+      })
+      .then(res => res.json())
+      .then(res => {
+        event.target.style.color = `#617695`; // silver
+      })
+      .catch(err => {
+        console.error(err);
+      })
+    }
+  }
+  window.onload = function () {
+    let token = localStorage.getItem("token");
+    fetch("https://selfscape.herokuapp.com/diary/", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+      },
+    })
+      .then(res => {
+        return res.json()
+      })
+      .then(res => {
+
+        if (res.message === "Found diary enteries") {
+
+          console.log(res);
+          let content = "";
+          let key = 0;
+          res.diary.forEach(ele => {
+            let mood = ele.mood;
+            let star = ele.isFavorite;
+            let starContent = ``;
+            console.log(star);
+            if (star === false) {
+              starContent = `<i class="fa fa-star star" data-id="${ele._id}" onClick="colorChange(event)" style="color: #617695" id="favorite"></i>`
+            }
+            else {
+              starContent = `<i class="fa fa-star star" data-id="${ele._id}" onClick="colorChange(event)" style="color: #F1C145" id="favorite"></i>`;
+            }
+            let diaryBody = ele.diaryBody;
+            let date = new Date(ele.created_at);
+            let created = date.toDateString();
+            key = key + 1;
+            content = content + ` <div class="col-12 col-md-4 " ><div class="card shadow-lg bg-white rounded">
+                        <div class="card-body">
+                           <div class="row">
+                            <div class="col-6 text-left mt-1 mb-4">
+                              Mood Score: ${mood}/10
+                            </div>
+                            <div class="col-6 text-right mt-1 mb-4">
+                            ${starContent}
+                          </div>
+                            </div> 
+                          
+                          <h6 class="card-subtitle mb-4 text-muted">${created}</h6>
+                          <div class="container mt-5">
+                            <div class="row mt-5" style="position: absolute; bottom: 0; left:15; right:5;width:100%;">
+                               <div data-toggle="modal" id="view" data-target="#exampleModal${key}" class="col-12 bgcolor" data-level="${mood}" style="  font-size: 16px; text-align:center; font-weight:bolder; height:30px;">View Entry</div> 
+                            </div> 
+                          </div>
+                         </div>
+                         </div>
+                        </div>
+                         
+                         <div class="modal fade" id="exampleModal${key}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">${created}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                ${diaryBody} 
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div> 
+                        `
+          })
+
+
+          document.getElementById('viewentries').innerHTML = content;
+
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+</script>
+
+</html>
+

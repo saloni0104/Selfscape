@@ -1,0 +1,185 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Logs</title>
+    <link rel="stylesheet" href="./styles/styles1.css">
+    <link rel="stylesheet" href="./styles/chatbot.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+ 
+</head>
+</head>
+<script>
+    function yellow(event) {
+        event.target.style.borderColor = " #2E486F";
+    }
+</script>
+
+<body style="
+      background-color: #e3e3e3;
+      background-image: url('./images/Bg_3.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+    ">
+     <nav class="navbar navbar-custom navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Selfscape</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="true">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navb" class="navbar-collapse collapse hide">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" style="color:#B15269 !important" href="today.html">Add Logs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="entries.html">My Logs</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="analytics.html">Analytics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="interests.html">Interests</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="view_interests.html">My Interests</a>
+            </li>
+          </ul>
+      
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="login.html"><span class="fas fa-sign-in-alt"></span> Logout</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+    
+    <div class="container ">
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1 card pb-3 pt-4" style="background-color: #C6D3DC;">
+                <h5 style="padding-left: 8%; font-size: 40px;" class="col-12   offset-md-1 card-title mb-4">
+                    <script>
+                    let date = new Date();
+                    let today = date.toDateString();
+                    document.write(today);
+                    </script></h5><br>
+                <div class="col-12 col-md-8 offset-md-2 card  text-center ">
+                    <div class="card-body text-center  ">                        
+                        <div class=" col-12 card-text text-center">                            
+                                <form>
+                                                <br>
+                                                <br>
+                                            <input style="margin-left: 10%;" type="range" min="1" max="10" value="5" class="slider" id="myRange" /><br><br>
+                                            <p style="font-size: 20; text-align: center;">Mood Score : <span id="output"></span>/10</p>
+
+                                        <textarea style="margin-left: 8%;" class="col-md-10"   rows="10" cols="40" id="logs"
+                                            placeholder="Your Entry" onfocus="yellow(event)"></textarea>
+                                     
+                                    <div class="col-12 mt-3" style="text-align: center;">
+                                        <input class="mt-5 mb-3 login-button" type="button" value="SAVE" id="sub">
+                                    </div>
+                                </form>
+                             
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="chatBotDiv"></div>
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("output");
+        output.innerHTML = slider.value;
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        };
+    </script>
+    <script>
+        window.onload = function () {
+            document.getElementById("sub").addEventListener("click", function (e) {
+                var myRange = document.getElementById("myRange").value;
+                var logs = document.getElementById("logs").value;
+
+                let status = [];
+                console.log(myRange);
+                console.log(logs);
+                if (logs.length <= 1) {
+                    document.getElementById("logs").style.borderColor = "#FC7762";
+                    document.getElementById("logs").value = "";
+                    document.getElementById("logs").placeholder =
+                        "Please enter the diary log";
+                    status.push("false");
+                    document.getElementById("logs").classList.add("red");
+                    e.preventDefault();
+                } else {
+                    status.push("true");
+                }
+                if (status.includes("false")) {
+                    console.log("There was some error while validating");
+                    return false;
+                } else {
+                    console.log("Validated");
+                    e.preventDefault();
+                    document.getElementById("sub").value = "Loading...";
+                    let token = localStorage.getItem("token");
+                    fetch("https://selfscape.herokuapp.com/diary/", {
+                        method: "POST",
+                        headers: new Headers({
+                            "content-type": "application/json",
+                            Authorization: `${token}`,
+                        }),
+                        body: JSON.stringify({
+                            mood: myRange,
+                            diaryBody: logs,
+                        }),
+                    })
+                        .then((res) => {
+                            return res.json();
+                        })
+                        .then((res) => {
+                            console.log(res);
+                            console.log(token);
+                            if (res.message == "Diary entry added successfully") {
+                                document.getElementById("sub").value = "Save";
+                                setTimeout(() => {
+                                    window.location.href = "entries.html";
+                                }, 2500);
+                            }
+                        })
+                        .catch((err) => {
+                            document.getElementById("banner").style.backgroundColor = "red";
+                            document.getElementById("banner").style.display = "block";
+                            document.getElementById("banner").innerHTML =
+                                "There was some error";
+                            document.getElementById("banner").classList.add("error");
+                            document.getElementById("sub").value = "Save";
+                        });
+                }
+            });
+        };
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src="chatbot.js"></script>
+</body>
+
+</html>

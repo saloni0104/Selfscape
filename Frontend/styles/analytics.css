@@ -1,0 +1,192 @@
+
+*{
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.navbar-custom{ 
+  background-color: #e3e3e3 ; 
+} 
+
+.nav-link{
+  margin-left:40px;
+}
+@media only screen and (max-width: 768px) {
+canvas{
+  height:200!important;
+  
+  margin-bottom: 20px;
+}
+#analytics{
+  background-color: #C6D3DC;
+  width:100%;
+  height:200%;
+  color:#161515;
+}
+}
+@media only screen and (min-width: 992px) {
+canvas{
+  width:100%!important;
+   height:300!important;
+}
+}
+#card{
+    background-color:#fff;
+  }
+  #analytics{
+    background-color: #C6D3DC;
+    width:100%;
+    height:100%;
+    color:#161515;
+  }
+:root {
+    --circle-size: 14px;
+    --circle-gap: 4px;
+    --week-width: calc(var(--circle-size) + var(--circle-gap));
+  }
+  
+  .months { grid-area: months; }
+  .days { grid-area: days; }
+  .circles { grid-area: circles; }
+  
+  .graph {
+    display: inline-grid;
+    grid-template-areas: "empty months"
+                         "days circles";
+    grid-template-columns: auto 1fr;
+    grid-gap: 2px;
+  }
+  
+  .months {
+    display: grid;
+    grid-template-columns: calc(var(--week-width) * 4) /* Jan */
+                           calc(var(--week-width) * 4) /* Feb */
+                           calc(var(--week-width) * 4) /* Mar */
+                           calc(var(--week-width) * 5) /* Apr */
+                           calc(var(--week-width) * 4) /* May */
+                           calc(var(--week-width) * 4) /* Jun */
+                           calc(var(--week-width) * 5) /* Jul */
+                           calc(var(--week-width) * 4) /* Aug */
+                           calc(var(--week-width) * 4) /* Sep */
+                           calc(var(--week-width) * 5) /* Oct */
+                           calc(var(--week-width) * 4) /* Nov */
+                           calc(var(--week-width) * 5) /* Dec */;
+  }
+  
+  .days,
+  .circles {
+    display: grid;
+    grid-gap: var(--circle-gap);
+    grid-template-rows: repeat(7, var(--circle-size));
+  }
+  
+  .circles {
+    grid-auto-flow: column;
+    grid-auto-columns: var(--circle-size);
+  }
+  
+  .graph {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 12px;
+    padding: 4px;
+    border: 1px #e1e4e8 solid;
+    margin-right: 10px;
+  }
+  
+  .days li:nth-child(even) {
+    visibility: hidden;
+  }
+  
+  .circles li {
+    background-color: #C5C5C5;
+  }
+  
+  .circles li[data-level="1"] {
+    background-color: #C6D3DC;
+  }
+  
+  .circles li[data-level="2"] {
+    background-color: #76ACCF;
+  }
+  
+  .circles li[data-level="3"] {
+    background-color: #617695;
+  }
+  .circles li[data-level="4"] {
+    background-color: #10375D;
+  }
+  .circles li[data-level="5"] {
+    background-color: #291170;
+  }
+  .circles li[data-level="6"] {
+    background-color: #1b0b14;
+  }
+  .circles li[data-level="7"] {
+    background-color: #7D2C58;
+  }
+  .circles li[data-level="8"] {
+    background-color: #B15269;
+  }
+  .circles li[data-level="9"] {
+    background-color: #E08CA0;
+  }
+  .circles li[data-level="10"] {
+    background-color: #E3BBB9;
+  }
+
+  a{
+    color:#3D3D3D !important;
+    font-size:16px;
+    font-weight: 600;
+}
+
+
+  .bgcolor {
+    background-color: #C5C5C5;
+    color: #10375D;
+  }
+  
+  .bgcolor[data-level="1"] {
+    background-color: #C6D3DC;
+    color: #10375D;
+  }
+  
+  .bgcolor[data-level="2"] {
+    background-color: #76ACCF;
+    color: #10375D;
+  }
+  
+  .bgcolor[data-level="3"] {
+    background-color: #617695;
+    color: #fff;
+  }
+  .bgcolor[data-level="4"] {
+    background-color: #10375D;
+    color: #fff;
+  }
+  .bgcolor[data-level="5"] {
+    background-color: #291170;
+    color: #fff;
+  }
+  .bgcolor[data-level="6"] {
+    background-color: #1b0b14;
+    color:white;
+  }
+  .bgcolor[data-level="7"] {
+    background-color: #7D2C58;
+    color:white;
+  }
+  .bgcolor[data-level="8"] {
+    background-color: #B15269;
+    color:#fff;
+  }
+  .bgcolor[data-level="9"] {
+    background-color: #E08CA0;
+    color: #7D2C58;
+  }
+  .bgcolor[data-level="10"] {
+    background-color: #E3BBB9;
+     color: #7D2C58;
+  }

@@ -1,0 +1,203 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Insights</title>
+  <link rel="stylesheet" href="./styles/analytics.css">
+  <link rel="stylesheet" href="./styles/chatbot.css" />
+  <link rel="preload" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" as="style"
+  onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</noscript>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  
+</head>
+<script>
+  function yellow(event) {
+    event.target.style.borderColor = " #2E486F";
+  }</script>
+
+<body style="background-color: #E3E3E3; background-image: url('./images/Bg_4.png'); background-size: cover; background-repeat: no-repeat;   ">
+  <nav class="navbar navbar-custom navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Selfscape</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="true">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navb" class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="today.html">Add Logs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="entries.html">My Logs</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" style="color:#B15269 !important"  href="analytics.html">Analytics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="interests.html">Interests</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="view_interests.html">My Interests</a>
+        </li>
+      </ul>
+  
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="login.html"><span class="fas fa-sign-in-alt"></span> Logout</a>
+          </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card col-12 col-md-8 offset-md-2  pb-4" id="analytics">
+
+        <h1 style="font-weight: 300;" class="col-12 mb-2 mt-2 pt-2">View Analytics</h1>
+        <div class="col-12 card overflow-auto" style="padding:2px;">
+          <canvas id="myChart" class="overflow-auto"  ></canvas>
+        </div>
+        <br>
+        <div class="col-12 card" style="padding:2px;  margin-bottom: 20px;">
+          <div class="col-12 graph overflow-auto">
+            <ul class="months" style="list-style-type:none;">
+              <li>Jan</li>
+              <li>Feb</li>
+              <li>Mar</li>
+              <li>Apr</li>
+              <li>May</li>
+              <li>Jun</li>
+              <li>Jul</li>
+              <li>Aug</li>
+              <li>Sep</li>
+              <li>Oct</li>
+              <li>Nov</li>
+              <li>Dec</li>
+            </ul>
+
+            <ul class="circles" style="list-style-type:none;">
+
+              <script>
+
+              </script>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div id="chatBotDiv"></div>
+  <script>
+    window.onload = function getData(e) {
+      let token = localStorage.getItem("token");
+      fetch("https://selfscape.herokuapp.com/diary/chartData/", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`
+        },
+      })
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          if (res.message === "Found data") {
+            console.log(res.dataCoordinates);
+            var ctx = document.getElementById('myChart');
+            var myChart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                  label: 'Average Mood Score',
+                  data: res.data,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
+            const circles = document.querySelector('.circles');
+            const level = res.alldata;
+            for (var i = 1; i < 365; i++) {
+              //const level = Math.floor(Math.random() * 11);  
+              circles.insertAdjacentHTML('beforeend', `<li data-level="${level[i]}"></li>`);
+            }
+
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  </script>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+ integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+ crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+ integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+ crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+ integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+ crossorigin="anonymous"></script>
+  
+<script src="chatbot.js"></script>
+ 
+
+
+</body>
+
+</html>
