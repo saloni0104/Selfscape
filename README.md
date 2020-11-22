@@ -46,6 +46,10 @@ Through this, we can monitor mood swings and unexpected behavioural changes by m
 * [Riddhi Gupta](http://github.com/RiddhiGupta5)
 * [Manorama Maharana](http://github.com/Manorama09)
 
+## Link to the project demo video
+
+[Watch video](https://www.youtube.com/watch?v=uZtXNzzlZ08&feature=youtu.be)
+
 ## Screenshot of the Home Page of the website
 
 ![Selfscape](https://github.com/[saloni0104]/[Selfscape-mood_analyst]/blob/[master]/images/HomePage.png?raw=true)
