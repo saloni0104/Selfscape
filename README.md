@@ -37,7 +37,8 @@ Through this, we can monitor mood swings and unexpected behavioural changes by m
 ### Deployment
 
 1. Database : Atlas MongoDB
-2. The Project is hosted using Netlify and is live at https://selfscape.netlify.app
+2. The Project is hosted using Netlify and the domain is registered using domain.com.
+3. The application is live at http://www.selfscape.space/
 3. Backend Server is deployed using Heroku
 
 ## Contributors
