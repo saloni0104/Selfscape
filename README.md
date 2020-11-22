@@ -34,8 +34,6 @@ Through this, we can monitor mood swings and unexpected behavioural changes by m
 1. Technical Stack Used: NodeJS, MongoDB, ExpressJS, JWT
 2. Editor Used: VS Code
 
-Link to backend repo: https://github.com/RiddhiGupta5/selfscape-backend
-
 ### Deployment
 
 1. Database : Atlas MongoDB
