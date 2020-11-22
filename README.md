@@ -52,7 +52,7 @@ Through this, we can monitor mood swings and unexpected behavioural changes by m
 
 ## Screenshot of the Home Page of the website
 
-![Selfscape](https://github.com/[saloni0104]/[Selfscape-mood_analyst]/blob/[master]/images/HomePage.png?raw=true)
+![Selfscape](https://github.com/saloni0104/Selfscape/blob/master/Selfscape.PNG?raw=true)
 
 <p align="center">
 	Made with :heart:
