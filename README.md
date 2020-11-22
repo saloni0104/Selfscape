@@ -20,7 +20,7 @@ Through this, we can monitor mood swings and unexpected behavioural changes by m
 
 ### Design:
 
-1. Figma
+1. Figma - [View our designs](https://www.figma.com/file/5Gs5DD5aMWGsZZxfiEmj16/Selfscape?node-id=0%3A1)
 
 ### Frontend:
 
